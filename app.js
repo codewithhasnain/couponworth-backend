@@ -23,7 +23,7 @@ connectDB();
 const app = express();
 
 const corsOptions = {
-  origin: 'https://coupenworth-frontend.vercel.app', // The domain of your frontend
+  origin: 'http://couponsworth.com', // The domain of your frontend
   methods: 'GET, POST, PUT, DELETE, PATCH', // Allow DELETE and other methods
   allowedHeaders: 'Content-Type, Authorization', // Customize as needed
 };
