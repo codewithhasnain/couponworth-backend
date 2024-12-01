@@ -24,12 +24,12 @@ const app = express();
 
 const corsOptions = {
   origin: ['https://couponsworth.com', 'http://couponsworth.com'], // Allow both HTTP and HTTPS for your domain
-  methods: 'GET, POST, PUT, DELETE, PATCH', // Allow DELETE and other methods
-  allowedHeaders: 'Content-Type, Authorization', // Customize as needed
+  methods: 'GET,POST,PUT,DELETE,PATCH', // Allow the necessary HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Customize as needed
+  credentials: true // If you are using cookies or authentication headers
 };
 
-
-app.use(cors(corsOptions)); // Enable CORS with the specified options
+app.use(cors(corsOptions)); // Apply the CORS configuration
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
