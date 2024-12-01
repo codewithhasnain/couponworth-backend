@@ -23,7 +23,7 @@ connectDB();
 const app = express();
 
 const corsOptions = {
-  origin: 'http://couponsworth.com', // The domain of your frontend
+  origin: ['https://couponsworth.com', 'http://couponsworth.com'], // Allow both HTTP and HTTPS for your domain
   methods: 'GET, POST, PUT, DELETE, PATCH', // Allow DELETE and other methods
   allowedHeaders: 'Content-Type, Authorization', // Customize as needed
 };
