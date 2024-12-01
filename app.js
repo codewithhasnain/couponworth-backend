@@ -7,6 +7,7 @@ const path = require('path');
 const upload = require('./config/multerConfig');
 const http = require('http');
 
+
 // Importing routes
 const userRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
