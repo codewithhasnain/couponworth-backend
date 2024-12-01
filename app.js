@@ -64,6 +64,7 @@ app.use(errorHandler);
 //   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 // });
 
+
 // At the end of your routes in app.js
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to CouponWorth Backend');
