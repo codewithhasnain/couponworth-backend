@@ -21,12 +21,12 @@ connectDB();
 
 const app = express();
 
-// Configure CORS to allow requests from the frontend
 const corsOptions = {
   origin: 'https://coupenworth-frontend.vercel.app', // The domain of your frontend
-  methods: 'GET, POST', // Add other methods if needed
+  methods: 'GET, POST, PUT, DELETE, PATCH', // Allow DELETE and other methods
   allowedHeaders: 'Content-Type, Authorization', // Customize as needed
 };
+
 
 app.use(cors(corsOptions)); // Enable CORS with the specified options
 
