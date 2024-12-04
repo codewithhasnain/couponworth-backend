@@ -26,6 +26,7 @@ const StoreSchema = new mongoose.Schema({
 
   description: { type: String }, // Store description
   category: { type: String }, // Store category (e.g., Electronics, Groceries)
+  categoryIconUrl: { type: String }, // New field for category icon URL
   tags: [String], // Tags for search and filtering
   rating: { type: Number, min: 0, max: 5 }, // Overall store rating
   reviewCount: { type: Number, default: 0 }, // Number of reviews for the store
