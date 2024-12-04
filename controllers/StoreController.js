@@ -41,6 +41,7 @@ const createStore = async (req, res) => {
       url,
       description,
       category,
+      categoryIconUrl, // Accept categoryIconUrl from request body
       tags,
       status,
       rating,
@@ -85,6 +86,7 @@ const createStore = async (req, res) => {
       url,
       description,
       category,
+      categoryIconUrl, // Add it to the new store object
       tags,
       status,
       rating,
@@ -180,6 +182,7 @@ const updateStore = async (req, res) => {
       url,
       description,
       category,
+      categoryIconUrl, // Include categoryIconUrl in the update
       tags,
       status,
       rating,
@@ -215,6 +218,7 @@ const updateStore = async (req, res) => {
         url,
         description,
         category,
+        categoryIconUrl, // Include categoryIconUrl in the update
         tags,
         status,
         rating,
