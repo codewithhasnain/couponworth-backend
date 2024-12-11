@@ -21,7 +21,5 @@ router.delete('/stores/id/:id', StoreController.deleteStore);
 router.post('/stores/:id/coupons', StoreController.addCoupons);
 router.get('/search', StoreController.searchStores);
 
-// Add this route in routes/StoreRoutes.js
-router.get('/stores/slug/:slug', StoreController.getStoreBySlug);
 
 module.exports = router;
