@@ -1,65 +1,72 @@
+// models/StoreModel.js
 const mongoose = require('mongoose');
 
 // Coupon Schema
 const CouponSchema = new mongoose.Schema({
-  code: { type: String, required: true }, // Coupon code is required
-  description: { type: String }, // Brief description of the coupon
-  discount: { type: Number, required: true }, // Discount amount is required
-  discountType: { type: String, enum: ['percentage', 'fixed'], required: true }, // Type of discount is required
-  expiryDate: { type: Date }, // Expiry date for the coupon
-  terms: { type: String }, // Terms and conditions for the coupon
-  isFeatured: { type: Boolean, default: false }, // Highlight popular coupons
-  
-  isVerified: { type: Boolean, default: false }, // Whether the coupon is verified
-  createdAt: { type: Date, default: Date.now }, // Creation date
-  lastUsedAt: { type: Date }, // Last usage date
-  usageCount: { type: Number, default: 0 }, // How many times the coupon has been used
-  votes: { type: Number, default: 0 }, // Number of votes for the coupon
-  rating: { type: Number, min: 0, max: 5 }, // User rating for the coupon
+  code: { type: String, required: true },
+  description: { type: String },
+  discount: { type: Number, required: true },
+  discountType: { type: String, enum: ['percentage', 'fixed'], required: true },
+  expiryDate: { type: Date },
+  terms: { type: String },
+  isFeatured: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+  lastUsedAt: { type: Date },
+  usageCount: { type: Number, default: 0 },
+  votes: { type: Number, default: 0 },
+  rating: { type: Number, min: 0, max: 5 },
 });
 
 // Store Schema
 const StoreSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true }, // Store name
-  logo: { type: String }, // Store logo image URL
-  url: { type: String, required: true }, // Store website URL
-
-  description: { type: String }, // Store description
-  category: { type: String }, // Store category (e.g., Electronics, Groceries)
-  categoryIconUrl: { type: String }, // New field for category icon URL
-  tags: [String], // Tags for search and filtering
-  rating: { type: Number, min: 0, max: 5 }, // Overall store rating
-  reviewCount: { type: Number, default: 0 }, // Number of reviews for the store
-  status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' }, // Store status
-  coupons: [CouponSchema], // List of coupons associated with the store (optional)
-  verified: { type: Boolean, default: false }, // Indicates if the store is verified
-  featuredCoupons: [CouponSchema], // Highlighted coupons for the store (optional)
-  updatedAt: { type: Date, default: Date.now }, // Last updated timestamp
-  region: { type: String }, // Specific region or country for the store
-  popularityScore: { type: Number, default: 0 }, // Popularity score for ranking
-  faq: [{ question: String, answer: String }], // FAQs related to the store
-  contactInfo: { type: String }, // Store's contact information
-  totalCoupons: { type: Number, default: 0 }, // Total coupons available for the store
-  activeCoupons: { type: Number, default: 0 }, // Active coupons available for the store
-  bestDiscount: { type: Number, default: 0 }, // Best discount percentage available today
-  totalDeals: { type: Number, default: 0 }, // Total number of deals (e.g., sales, promotions)
-  history: { type: String }, // History or background of the store
+  name: { type: String, required: true, unique: true },
+  slug: { type: String, required: true, unique: true }, // New field for store slug
+  logo: { type: String },
+  url: { type: String, required: true },
+  description: { type: String },
+  category: { type: String },
+  categoryIconUrl: { type: String },
+  tags: [String],
+  rating: { type: Number, min: 0, max: 5 },
+  reviewCount: { type: Number, default: 0 },
+  status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
+  coupons: [CouponSchema],
+  verified: { type: Boolean, default: false },
+  featuredCoupons: [CouponSchema],
+  updatedAt: { type: Date, default: Date.now },
+  region: { type: String },
+  popularityScore: { type: Number, default: 0 },
+  faq: [{ question: String, answer: String }],
+  contactInfo: { type: String },
+  totalCoupons: { type: Number, default: 0 },
+  activeCoupons: { type: Number, default: 0 },
+  bestDiscount: { type: Number, default: 0 },
+  totalDeals: { type: Number, default: 0 },
+  history: { type: String },
   alternatives: [
     {
       name: { type: String, required: true },
       url: { type: String },
       discountsAvailable: { type: Number, default: 0 },
     },
-  ], // List of alternative stores
-  recommendedCoupons: [CouponSchema], // Recommended coupon list (optional)
-  popularStores: [{ name: String, url: String }], // List of popular stores with promo codes (optional)
-  promotionalInfo: { type: String }, // Store's Promotional Information
-  pointsToKnow: [{ type: String }], // Points you should know about
-  freeShipping: { type: Boolean, default: false }, // Free shipping availability
-  memberDiscount: { type: Boolean, default: false }, // Member discount availability
-  militaryDiscount: { type: Boolean, default: false }, // Military discount availability
+  ],
+  recommendedCoupons: [CouponSchema],
+  popularStores: [{ name: String, url: String }],
+  promotionalInfo: { type: String },
+  pointsToKnow: [{ type: String }],
+  freeShipping: { type: Boolean, default: false },
+  memberDiscount: { type: Boolean, default: false },
+  militaryDiscount: { type: Boolean, default: false },
   isTrending: { type: Boolean, default: false },
+});
 
+// Middleware to generate slug before saving a store
+StoreSchema.pre('save', function (next) {
+  if (this.isModified('name')) {
+    this.slug = this.name.toLowerCase().replace(/\s+/g, '-'); // e.g., "Nike Store" -> "nike-store"
+  }
+  next();
 });
 
 module.exports = mongoose.model('Store', StoreSchema);
