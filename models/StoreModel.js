@@ -1,12 +1,12 @@
 // models/StoreModel.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Coupon Schema
 const CouponSchema = new mongoose.Schema({
   code: { type: String, required: true },
   description: { type: String },
   discount: { type: Number, required: true },
-  discountType: { type: String, enum: ['percentage', 'fixed'], required: true },
+  discountType: { type: String, enum: ["percentage", "fixed"], required: true },
   expiryDate: { type: Date },
   terms: { type: String },
   isFeatured: { type: Boolean, default: false },
@@ -20,17 +20,16 @@ const CouponSchema = new mongoose.Schema({
 
 // Store Schema
 const StoreSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  slug: { type: String, required: true, unique: true }, // New field for store slug
-  logo: { type: String },
-  url: { type: String, required: true },
+  name: { type: String, required: true, unique: true }, // Store name
+  logo: { type: String }, // Store logo image URL
+  url: { type: String, required: true }, // Store website URL
   description: { type: String },
-  category: { type: String },
-  categoryIconUrl: { type: String },
+  category: { type: String }, // Store category (e.g., Electronics, Groceries)
+  categoryIconUrl: { type: String }, // New field for category icon URL
   tags: [String],
   rating: { type: Number, min: 0, max: 5 },
   reviewCount: { type: Number, default: 0 },
-  status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
+  status: { type: String, enum: ["Active", "Inactive"], default: "Active" },
   coupons: [CouponSchema],
   verified: { type: Boolean, default: false },
   featuredCoupons: [CouponSchema],
@@ -61,12 +60,4 @@ const StoreSchema = new mongoose.Schema({
   isTrending: { type: Boolean, default: false },
 });
 
-// Middleware to generate slug before saving a store
-StoreSchema.pre('save', function (next) {
-  if (this.isModified('name')) {
-    this.slug = this.name.toLowerCase().replace(/\s+/g, '-'); // e.g., "Nike Store" -> "nike-store"
-  }
-  next();
-});
-
-module.exports = mongoose.model('Store', StoreSchema);
+module.exports = mongoose.model("Store", StoreSchema);
