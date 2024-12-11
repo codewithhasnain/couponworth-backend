@@ -33,6 +33,7 @@ const getStoreByName = async (req, res) => {
   }
 };
 
+// controllers/StoreController.js
 const createStore = async (req, res) => {
   try {
     const {
@@ -66,7 +67,7 @@ const createStore = async (req, res) => {
       coupons,
       featuredCoupons,
       recommendedCoupons,
-      isTrending, // Add isTrending here
+      isTrending,
     } = req.body;
 
     if (!name || !url) {
@@ -111,7 +112,7 @@ const createStore = async (req, res) => {
       coupons,
       featuredCoupons,
       recommendedCoupons,
-      isTrending, // Add isTrending to the new store object
+      isTrending,
     });
 
     await newStore.save();
@@ -207,7 +208,7 @@ const updateStore = async (req, res) => {
       coupons,
       featuredCoupons,
       recommendedCoupons,
-      isTrending, // Add isTrending here
+      isTrending,
     } = req.body;
 
     const updatedStore = await Store.findByIdAndUpdate(
@@ -218,7 +219,7 @@ const updateStore = async (req, res) => {
         url,
         description,
         category,
-        categoryIconUrl, // Include categoryIconUrl in the update
+        categoryIconUrl, // Add it here
         tags,
         status,
         rating,
@@ -243,7 +244,7 @@ const updateStore = async (req, res) => {
         coupons,
         featuredCoupons,
         recommendedCoupons,
-        isTrending, // Include isTrending in the update
+        isTrending,
       },
       { new: true, runValidators: true }
     );
@@ -337,21 +338,6 @@ const searchStores = async (req, res) => {
   }
 };
 
-// Controller to get store by slug
-const getStoreBySlug = async (req, res) => {
-  try {
-    const { slug } = req.params;
-    const store = await Store.findOne({ slug });
-
-    if (!store) {
-      return res.status(404).json({ message: "Store not found" });
-    }
-
-    res.json({ store });
-  } catch (error) {
-    res.status(500).json({ message: "An error occurred while fetching the store details." });
-  }
-};
 
 
 
@@ -365,5 +351,4 @@ module.exports = {
   filterStores,
   searchStores,
   addCoupons,
-  getStoreBySlug,
 };
