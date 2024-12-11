@@ -337,6 +337,21 @@ const searchStores = async (req, res) => {
   }
 };
 
+// Controller to get store by slug
+const getStoreBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const store = await Store.findOne({ slug });
+
+    if (!store) {
+      return res.status(404).json({ message: "Store not found" });
+    }
+
+    res.json({ store });
+  } catch (error) {
+    res.status(500).json({ message: "An error occurred while fetching the store details." });
+  }
+};
 
 
 
@@ -350,4 +365,5 @@ module.exports = {
   filterStores,
   searchStores,
   addCoupons,
+  getStoreBySlug,
 };
