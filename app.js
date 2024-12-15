@@ -22,12 +22,27 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  'https://couponsworth.com',
+  'http://couponsworth.com',
+  'http://adidas.couponsworth.com',
+  'https://adidas.couponsworth.com',
+];
+
 const corsOptions = {
-  origin: ['https://couponsworth.com', 'http://couponsworth.com','http://adidas.couponsworth.com','https://adidas.couponsworth.com'], // Allow both HTTP and HTTPS for your domain
-  methods: 'GET,POST,PUT,DELETE,PATCH', // Allow the necessary HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Customize as needed
-  credentials: true // If you are using cookies or authentication headers
+  origin: (origin, callback) => {
+    // Allow requests with no origin, like mobile apps or curl
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,POST,PUT,DELETE,PATCH',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Required if your frontend sends credentials (cookies, etc.)
 };
+
 
 app.use(cors(corsOptions)); // Apply the CORS configuration
 
