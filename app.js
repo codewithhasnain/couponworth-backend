@@ -23,7 +23,7 @@ connectDB();
 const app = express();
 
 const corsOptions = {
-  origin: ['https://couponsworth.com', 'http://couponsworth.com,http://adidas.couponsworth.com/'], // Allow both HTTP and HTTPS for your domain
+  origin: ['https://couponsworth.com', 'http://couponsworth.com','http://adidas.couponsworth.com','https://adidas.couponsworth.com'], // Allow both HTTP and HTTPS for your domain
   methods: 'GET,POST,PUT,DELETE,PATCH', // Allow the necessary HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Customize as needed
   credentials: true // If you are using cookies or authentication headers
