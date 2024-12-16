@@ -22,26 +22,26 @@ connectDB();
 
 const app = express();
 
-const allowedOrigins = [
-  'https://couponsworth.com',
-  'http://couponsworth.com',
-  'http://adidas.couponsworth.com',
-  'https://adidas.couponsworth.com',
-];
+// const allowedOrigins = [
+//   'https://couponsworth.com',
+//   'http://couponsworth.com',
+//   'http://adidas.couponsworth.com',
+//   'https://adidas.couponsworth.com',
+// ];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests with no origin, like mobile apps or curl
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,POST,PUT,DELETE,PATCH',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // Required if your frontend sends credentials (cookies, etc.)
-};
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     // Allow requests with no origin, like mobile apps or curl
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: 'GET,POST,PUT,DELETE,PATCH',
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true, // Required if your frontend sends credentials (cookies, etc.)
+// };
 
 
 app.use(cors(corsOptions)); // Apply the CORS configuration
